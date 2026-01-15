@@ -37,7 +37,7 @@ export const SearchDistrict = ({
     setQuery("");
     setIsFocused(false);
     
-    // onSelect 호출 (비동기일 수 있으므로 await)
+    // onSelect 호출 
     try {
       await onSelect(district, { province, city, village });
     } catch (error) {
@@ -47,7 +47,6 @@ export const SearchDistrict = ({
 
   return (
     <div className={cn("relative w-full max-w-2xl mx-auto", className)}>
-      {/* Search Input Container */}
       <div className="relative group">
         <div className="absolute left-5 top-1/2 -translate-y-1/2 transition-all duration-300 z-10">
           <Search 
@@ -64,7 +63,7 @@ export const SearchDistrict = ({
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-          placeholder="지역을 검색하세요 (예: 종로구, 청운동)"
+          placeholder="지역을 검색하세요 (예: 종로구, 강남구)"
           className={cn(
             "w-full pl-14 pr-12 py-4.5 rounded-2xl bg-white/90 backdrop-blur-sm",
             "text-slate-800 text-base font-medium placeholder:text-slate-400 placeholder:font-normal",
@@ -91,7 +90,6 @@ export const SearchDistrict = ({
         )}
       </div>
 
-      {/* Search Results Dropdown */}
       {isFocused && (query.trim().length > 0 || isLoading) && (
         <div className={cn(
           "absolute top-full left-0 right-0 mt-3 max-h-96 overflow-hidden",

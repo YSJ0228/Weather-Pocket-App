@@ -81,7 +81,7 @@ export const Toast = ({
         <div className={`absolute inset-0 bg-linear-to-r ${config.bgGradient} animate-pulse`} />
         
         <div className="relative flex items-center gap-4 px-5 py-4">
-          {/* 아이콘 - 더 크고 화려하게 */}
+          {/* 아이콘 */}
           <div className="relative shrink-0">
             {/* 펄스 효과 링 */}
             <div className={`absolute inset-0 rounded-full bg-linear-to-br ${config.bg} opacity-20 blur-md animate-pulse`} />

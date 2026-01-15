@@ -55,15 +55,6 @@ html {
   @apply bg-white/90 backdrop-blur-sm rounded-2xl shadow-md border border-[#A8D5E0]/30;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 @keyframes slideUp {
   from {
     opacity: 0;

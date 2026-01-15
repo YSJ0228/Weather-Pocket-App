@@ -50,7 +50,6 @@ export const WeatherDashboard = () => {
     })),
   });
 
-  // 1. Initial sync: When browser location is obtained, set it as active if none is set
   useEffect(() => {
     const initLocation = async () => {
       if (browserCoords && !activeCoords) {
@@ -103,7 +102,7 @@ export const WeatherDashboard = () => {
     });
   };
 
-  // 2. Main weather query for active coordinates (includes daily and hourly)
+ 
   const {
     data: weatherData,
     isLoading: isWeatherLoading,
@@ -150,7 +149,7 @@ export const WeatherDashboard = () => {
         throw new Error("검색할 지역명이 없습니다.");
       }
       
-      // 임시로 파싱된 지역명 표시 (더 읽기 쉽게)
+      // 임시로 파싱된 지역명 표시 
       let tempLocationName = "";
       if (village && city) {
         tempLocationName = `${city} ${village}`;
@@ -236,7 +235,6 @@ export const WeatherDashboard = () => {
           <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* 시계와 모바일 즐겨찾기 버튼 */}
             <div className="flex items-end justify-between lg:justify-center lg:items-center px-2 sm:px-0">
-              {/* 모바일/태블릿에서만 왼쪽 공간 확보 (중앙 정렬 유지) */}
               <div className="lg:hidden w-12 sm:w-14" />
               
               <DigitalClock />
@@ -257,9 +255,9 @@ export const WeatherDashboard = () => {
               </div>
             </div>
 
-            {/* 메인 콘텐츠와 즐겨찾기를 분리된 구조로 배치 */}
+            {/* 메인 콘텐츠와 즐겨찾기를 분리된 구조 */}
             <div className="flex flex-col lg:flex-row gap-6 md:gap-8 lg:items-start lg:overflow-visible">
-              {/* 메인 콘텐츠 영역 - 스크롤 가능 */}
+              {/* 메인 콘텐츠 영역 */}
               <div className="flex-1 flex flex-col gap-6 md:gap-8 min-w-[320px] w-full">
                 <main className="flex flex-col gap-6 md:gap-8">
                   <section>

@@ -101,7 +101,7 @@ export const weatherApi = {
     // data.hourly.temperature_2m[currentHourIndex]는 어제 이 시간 기온
     const yesterdayTemp = data.hourly.temperature_2m[currentHourIndex];
     
-    // 오늘의 현재 시간 인덱스 (24를 더해서 오늘 데이터 영역으로)
+    // 오늘의 현재 시간 인덱스 
     const todayHourIndex = currentHourIndex + 24;
 
     // 좌표를 소수점 4자리로 반올림하여 일관된 ID 생성 (약 11m 정확도)
@@ -114,8 +114,8 @@ export const weatherApi = {
         temp: data.current.temperature_2m,
         yesterday_temp: yesterdayTemp,
         feels_like: data.current.apparent_temperature,
-        temp_min: data.daily.temperature_2m_min[0],
-        temp_max: data.daily.temperature_2m_max[0],
+        temp_min: data.daily.temperature_2m_min[1], // 인덱스 1 = 오늘
+        temp_max: data.daily.temperature_2m_max[1], // 인덱스 1 = 오늘
         humidity: data.current.relative_humidity_2m,
         wind_speed: data.current.wind_speed_10m,
         description: getWmoDescription(data.current.weather_code),
@@ -127,20 +127,22 @@ export const weatherApi = {
         uv_index: data.hourly.uv_index[todayHourIndex] || 0,
         precip_prob:
           data.hourly.precipitation_probability[todayHourIndex] || 0,
-        sunrise: data.daily.sunrise[0],
-        sunset: data.daily.sunset[0],
+        sunrise: data.daily.sunrise[1], // 인덱스 1 = 오늘
+        sunset: data.daily.sunset[1],   // 인덱스 1 = 오늘
         cloud_cover: data.current.cloud_cover,
         air_quality: {
           pm10: airData.current ? airData.current.pm10 : 0,
           pm2_5: airData.current ? airData.current.pm2_5 : 0,
         },
       },
-      daily: data.daily.time.map((time: string, i: number) => ({
+      // past_days: 1 설정으로 인덱스 0은 어제, 1부터 오늘
+      // 오늘부터 7일간 표시 (인덱스 1~7)
+      daily: data.daily.time.slice(1, 8).map((time: string, i: number) => ({
         date: time,
-        temp_max: data.daily.temperature_2m_max[i],
-        temp_min: data.daily.temperature_2m_min[i],
-        icon_code: data.daily.weather_code[i],
-        description: getWmoDescription(data.daily.weather_code[i]),
+        temp_max: data.daily.temperature_2m_max[i + 1],
+        temp_min: data.daily.temperature_2m_min[i + 1],
+        icon_code: data.daily.weather_code[i + 1],
+        description: getWmoDescription(data.daily.weather_code[i + 1]),
       })),
       hourly: data.hourly.time.slice(24, 48).map((time: string, i: number) => ({
         time,
@@ -178,20 +180,7 @@ export const weatherApi = {
 
     try {
       // Kakao Local API (Reverse Geocoding)
-      // KA 헤더 형식: 플랫폼 설정 없이도 사용 가능하도록 여러 형식 시도
-      // 방법 1: origin 필드 사용 (플랫폼 설정이 있는 경우)
-      // 방법 2: os만 사용 (플랫폼 설정이 없는 경우)
-      const origin = typeof window !== "undefined" ? window.location.origin : "http://localhost:5173";
-      
-      // KA 헤더: 플랫폼 설정이 없는 경우 os만 사용
-      // 카카오 Local API는 플랫폼 설정 없이도 REST API 키만으로 사용 가능
-      // origin 필드는 플랫폼 설정이 있을 때만 필요할 수 있음
       const kaHeader = "os/web";
-      
-      // 디버깅: origin과 KA 헤더 값 확인
-      console.log("Current origin:", origin);
-      console.log("KA Header:", kaHeader);
-      console.log("Kakao API Key (first 10 chars):", KAKAO_API_KEY?.substring(0, 10) + "...");
       
       const response = await fetch(
         `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${lon}&y=${lat}`,
@@ -236,15 +225,12 @@ export const weatherApi = {
         return "현재 위치";
       }
 
-      // Build address from most specific to least specific
       // Priority: 동/리 > 구/군 > 시/도
       const region3 = address.region_3depth_name; // 동/리
       const region2 = address.region_2depth_name; // 구/군
       const region1 = address.region_1depth_name; // 시/도
 
-      // Return the most specific available name
       if (region3 && region3 !== "") {
-        // If we have dong/ri, combine with gu/gun for clarity
         if (region2 && region2 !== "") {
           return `${region2} ${region3}`;
         }
