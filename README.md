@@ -2,6 +2,9 @@
 
 <div align="center">
 
+<img width="1200" height="630" alt="og-image" src="https://github.com/user-attachments/assets/bd14639b-9803-43ca-97d7-1af77992d488" />
+
+
 **세련되고 직관적인 날씨 앱**
 
 [![React](https://img.shields.io/badge/React-19.2.0-61DAFB?style=flat-square&logo=react&logoColor=white)](https://reactjs.org/)
