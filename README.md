@@ -4,10 +4,10 @@
 
 **세련되고 직관적인 날씨 앱**
 
-[![React](https://img.shields.io/badge/React-18.3.1-61DAFB?style=flat-square&logo=react&logoColor=white)](https://reactjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.6.2-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-6.0.3-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.4.17-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![React](https://img.shields.io/badge/React-19.2.0-61DAFB?style=flat-square&logo=react&logoColor=white)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-7.2.4-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4.1.18-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
 [✨ 기능](#-주요-기능) • [🚀 시작하기](#-시작하기) • [🛠️ 기술 스택](#️-기술-스택) • [📱 스크린샷](#-스크린샷)
 
@@ -70,10 +70,10 @@ Weather Pocket은 현대적이고 사용자 친화적인 날씨 애플리케이�
 
 ```bash
 # 저장소 클론
-git clone https://github.com/your-username/weather-pocket.git
+git clone https://github.com/YSJ0228/Weather-Pocket-App.git
 
 # 프로젝트 디렉토리로 이동
-cd weather-pocket
+cd Weather-Pocket-App
 
 # 의존성 설치
 npm install
@@ -81,13 +81,29 @@ npm install
 
 ### 🔑 환경 변수 설정
 
-프로젝트 루트에 `.env` 파일을 생성하고 필요한 환경 변수를 설정하세요:
+프로젝트 루트에 `.env` 파일을 생성하고 다음 환경 변수를 설정하세요:
 
 ```env
-# 필요시 API 키 등을 추가
+# Kakao API 키 (필수)
+VITE_KAKAO_API_KEY=your_kakao_api_key_here
+
+# OpenWeatherMap API 키 (선택사항 - 폴백용)
+VITE_WEATHER_API_KEY=your_openweathermap_api_key_here
 ```
 
-> 💡 이 프로젝트는 [Open-Meteo API](https://open-meteo.com/)를 사용하며, API 키가 필요 없습니다.
+#### API 키 발급 방법
+
+1. **Kakao API 키** (필수)
+   - [Kakao Developers](https://developers.kakao.com/) 접속
+   - 애플리케이션 추가 → REST API 키 발급
+   - 역지오코딩(좌표 → 주소 변환)에 사용
+
+2. **OpenWeatherMap API 키** (선택사항)
+   - [OpenWeatherMap](https://openweathermap.org/api) 접속
+   - 무료 플랜으로 API 키 발급
+   - Kakao API 실패 시 폴백으로 사용
+
+> 💡 [Open-Meteo API](https://open-meteo.com/)는 API 키가 필요 없습니다.
 
 ### 🏃 실행
 
@@ -109,7 +125,7 @@ npm run preview
 ## 🛠️ 기술 스택
 
 ### **Frontend**
-- ⚛️ **React 18** - UI 라이브러리
+- ⚛️ **React 19** - UI 라이브러리
 - 📘 **TypeScript** - 타입 안정성
 - ⚡ **Vite** - 빠른 빌드 도구
 - 🎨 **Tailwind CSS** - 유틸리티 CSS 프레임워크
@@ -120,7 +136,8 @@ npm run preview
 
 ### **API & 데이터**
 - 🌐 **Open-Meteo API** - 날씨 데이터
-- 📍 **Nominatim API** - 지오코딩 (주소 ↔ 좌표 변환)
+- 📍 **Kakao Local API** - 역지오코딩 (좌표 → 주소)
+- 🔄 **OpenWeatherMap Geocoding API** - 지오코딩 폴백
 - 🗺️ **Geolocation API** - 사용자 위치
 
 ### **차트 & 시각화**
@@ -130,6 +147,111 @@ npm run preview
 ### **아이콘 & 디자인**
 - 🎯 **Lucide React** - 아이콘 라이브러리
 - 🎭 **clsx & tailwind-merge** - 동적 스타일링
+
+---
+
+## 🤔 기술적 의사결정
+
+### 아키텍처 선택
+
+#### **FSD (Feature-Sliced Design) 아키텍처**
+- **선택 이유**
+  - 확장 가능하고 유지보수가 용이한 구조
+  - 각 레이어(app, entities, features, shared, widgets)의 책임이 명확
+  - 기능 단위로 코드를 분리하여 협업과 코드 파악이 쉬움
+  - 대규모 프로젝트로 확장 시에도 구조 유지 가능
+
+### 상태 관리
+
+#### **TanStack Query (React Query)**
+- **선택 이유**
+  - 서버 상태 관리에 최적화 (캐싱, 자동 리페칭, 백그라운드 업데이트)
+  - 보일러플레이트 코드 최소화
+  - 로딩/에러 상태 자동 관리
+  - `useQueries`를 통한 병렬 데이터 페칭으로 성능 최적화
+- **사용 사례**: 날씨 데이터, 즐겨찾기 날씨 데이터 페칭
+
+#### **Context API**
+- **선택 이유**
+  - 간단한 전역 상태 관리에 적합
+  - Redux 등 외부 라이브러리 없이 React 내장 기능 활용
+  - 번들 크기 최소화
+- **사용 사례**: 기온 단위(°C/°F), 시간 형식(12h/24h) 설정
+
+### API 및 데이터
+
+#### **Open-Meteo API**
+- **선택 이유**
+  - 완전 무료, API 키 불필요
+  - 높은 정확도와 다양한 기상 데이터 제공
+  - CORS 제한 없음, 응답 속도 우수
+  - 시간별/일별 예보, UV 지수, 강수 확률 등 풍부한 데이터
+- **대안 고려**: OpenWeatherMap (API 키 필요, 무료 플랜 제한)
+
+#### **Kakao Local API (역지오코딩)**
+- **선택 이유**
+  - 한국 주소 체계에 최적화
+  - 정확한 행정구역명 제공 (시/구/동)
+  - OpenWeatherMap Geocoding API를 폴백으로 사용하여 안정성 확보
+  - 좌표 → 주소 변환에 특화
+
+#### **korea_districts.json (한국 행정구역 데이터)**
+- **선택 이유**
+  - 오프라인 검색 가능 (API 호출 불필요)
+  - 빠른 검색 성능
+  - 서버 의존성 제거
+
+### UI 라이브러리 및 스타일링
+
+#### **Tailwind CSS**
+- **선택 이유**
+  - 유틸리티 우선 접근으로 빠른 개발
+  - 일관된 디자인 시스템 유지
+  - 사용하지 않는 스타일 자동 제거 (Purge)로 번들 크기 최소화
+  - 반응형 디자인 구현 용이
+
+#### **Lucide React**
+- **선택 이유**
+  - 가볍고 일관된 아이콘 세트
+  - React 컴포넌트로 제공되어 사용 편리
+  - 트리 쉐이킹 지원으로 번들 크기 최적화
+
+### 차트 라이브러리
+
+#### **Chart.js + react-chartjs-2**
+- **선택 이유**
+  - 널리 사용되는 안정적인 차트 라이브러리
+  - 다양한 차트 타입 지원
+  - 커스터마이징 용이
+  - 반응형 차트 자동 지원
+- **사용 사례**: 시간별 기온 그래프, 일별 온도 변화
+
+### 타입 안정성
+
+#### **TypeScript (Strict Mode)**
+- **선택 이유**
+  - 런타임 오류를 컴파일 타임에 감지
+  - IDE 자동완성 및 리팩토링 지원
+  - 팀 협업 시 코드 의도 명확화
+  - API 응답 타입 정의로 안전한 데이터 처리
+
+### 빌드 도구
+
+#### **Vite**
+- **선택 이유**
+  - 매우 빠른 개발 서버 시작 및 HMR
+  - ES 모듈 기반으로 최신 표준 활용
+  - Rollup 기반 최적화된 프로덕션 빌드
+  - Create React App 대비 5~10배 빠른 빌드 속도
+
+### 데이터 저장
+
+#### **localStorage**
+- **선택 이유**
+  - 간단한 클라이언트 사이드 저장소
+  - 별도 백엔드 서버 불필요
+  - 브라우저 간 세션 유지
+- **사용 사례**: 즐겨찾기 목록, 사용자 설정(단위, 시간 형식)
 
 ---
 
@@ -213,7 +335,7 @@ weather-pocket/
 ### 코드 스타일
 - ESLint를 사용한 코드 품질 관리
 - TypeScript strict 모드 활성화
-- Prettier를 통한 일관된 포맷팅
+- 일관된 코드 포맷팅
 
 ### 커스텀 훅
 - `useWeather` - 날씨 데이터 관리
@@ -229,42 +351,32 @@ weather-pocket/
 
 ### Open-Meteo API
 - **엔드포인트**: `https://api.open-meteo.com/v1/forecast`
-- **데이터**: 현재 날씨, 시간별/일별 예보
+- **데이터**: 현재 날씨, 시간별/일별 예보, UV 지수, 미세먼지
 - **특징**: 무료, API 키 불필요, 높은 정확도
 
-### Nominatim API (OpenStreetMap)
-- **엔드포인트**: `https://nominatim.openstreetmap.org`
-- **용도**: 지역명 검색, 좌표 변환
-- **특징**: 무료, 오픈소스
+### Kakao Local API
+- **엔드포인트**: `https://dapi.kakao.com/v2/local/geo/coord2address.json`
+- **용도**: 좌표 → 주소 변환 (역지오코딩)
+- **특징**: 한국 주소 체계에 최적화, 정확한 행정구역명
 
----
-
-## 📝 라이선스
-
-이 프로젝트는 MIT 라이선스 하에 배포됩니다.
+### OpenWeatherMap Geocoding API
+- **엔드포인트**: `https://api.openweathermap.org/geo/1.0`
+- **용도**: 역지오코딩 폴백 (Kakao API 실패 시)
+- **특징**: 글로벌 지역 지원
 
 ---
 
 ## 👨‍💻 개발자
 
-**Your Name**
-- GitHub: [@your-username](https://github.com/your-username)
+**YSJ**
+- GitHub: [@YSJ0228](https://github.com/YSJ0228)
 
 ---
 
 ## 🙏 감사의 말
 
 - [Open-Meteo](https://open-meteo.com/) - 날씨 데이터 제공
-- [OpenStreetMap](https://www.openstreetmap.org/) - 지오코딩 서비스
+- [Kakao Developers](https://developers.kakao.com/) - 역지오코딩 서비스
+- [OpenWeatherMap](https://openweathermap.org/) - 지오코딩 폴백
 - [Lucide](https://lucide.dev/) - 아이콘 제공
 - [Tailwind CSS](https://tailwindcss.com/) - CSS 프레임워크
-
----
-
-<div align="center">
-
-**⭐ 이 프로젝트가 마음에 드셨다면 Star를 눌러주세요! ⭐**
-
-Made with ❤️ and ☕
-
-</div>
