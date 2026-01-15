@@ -32,7 +32,7 @@ export const WeatherDashboard = () => {
   >("weather");
   const [isFavoritePanelOpen, setIsFavoritePanelOpen] = useState(false);
   const [isDeleteAllModalOpen, setIsDeleteAllModalOpen] = useState(false);
-  const [toast, setToast] = useState<{ isOpen: boolean; message: string; type: "success" | "error" | "info" }>({
+  const [toast, setToast] = useState<{ isOpen: boolean; message: string; type: "success" | "error" | "info" | "edit" }>({
     isOpen: false,
     message: "",
     type: "success",
@@ -83,6 +83,24 @@ export const WeatherDashboard = () => {
       console.error("Back to current location failed", err);
       setActiveLocationName("현재 위치");
     }
+  };
+
+  const handleRemoveFavorite = (id: string) => {
+    removeFavorite(id);
+    setToast({
+      isOpen: true,
+      message: "즐겨찾기에서 제거되었습니다",
+      type: "info",
+    });
+  };
+
+  const handleUpdateNickname = (id: string, newNickname: string) => {
+    updateNickname(id, newNickname);
+    setToast({
+      isOpen: true,
+      message: "지역명이 수정되었습니다",
+      type: "edit",
+    });
   };
 
   // 2. Main weather query for active coordinates (includes daily and hourly)
@@ -334,8 +352,8 @@ export const WeatherDashboard = () => {
                               tempMin={tempMin ? convertTemp(tempMin) : undefined}
                               unit={unit}
                               weatherIcon={weatherIcon}
-                              onRemove={() => removeFavorite(fav.id)}
-                              onUpdateNickname={(newNickname) => updateNickname(fav.id, newNickname)}
+                              onRemove={() => handleRemoveFavorite(fav.id)}
+                              onUpdateNickname={(newNickname) => handleUpdateNickname(fav.id, newNickname)}
                               onClick={() => {
                                 setActiveCoords({ lat: fav.lat, lon: fav.lon });
                                 setActiveLocationName(fav.nickname);
@@ -445,8 +463,8 @@ export const WeatherDashboard = () => {
                           tempMin={tempMin ? convertTemp(tempMin) : undefined}
                           unit={unit}
                           weatherIcon={weatherIcon}
-                          onRemove={() => removeFavorite(fav.id)}
-                          onUpdateNickname={(newNickname) => updateNickname(fav.id, newNickname)}
+                          onRemove={() => handleRemoveFavorite(fav.id)}
+                          onUpdateNickname={(newNickname) => handleUpdateNickname(fav.id, newNickname)}
                           onClick={() => {
                             setActiveCoords({ lat: fav.lat, lon: fav.lon });
                             setActiveLocationName(fav.nickname);
@@ -476,11 +494,11 @@ export const WeatherDashboard = () => {
 
         {activeTab === "settings" && (
           <div className="flex flex-col gap-8 sm:gap-10 px-4 sm:px-6 pt-6 sm:pt-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <header className="text-center space-y-2">
-              <h1 className="text-3xl font-semibold text-gray-900 tracking-tight">
+            <header className="text-center space-y-3 max-w-2xl mx-auto">
+              <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight drop-shadow-sm">
                 설정
               </h1>
-              <p className="text-gray-600 text-sm font-medium">
+              <p className="text-white/90 text-base font-medium leading-relaxed drop-shadow-sm">
                 앱 환경을 설정하세요
               </p>
             </header>
@@ -584,8 +602,8 @@ export const WeatherDashboard = () => {
                           tempMin={tempMin ? convertTemp(tempMin) : undefined}
                           unit={unit}
                           weatherIcon={weatherIcon}
-                          onRemove={() => removeFavorite(fav.id)}
-                          onUpdateNickname={(newNickname) => updateNickname(fav.id, newNickname)}
+                          onRemove={() => handleRemoveFavorite(fav.id)}
+                          onUpdateNickname={(newNickname) => handleUpdateNickname(fav.id, newNickname)}
                           onClick={() => {
                             setActiveCoords({ lat: fav.lat, lon: fav.lon });
                             setActiveLocationName(fav.nickname);

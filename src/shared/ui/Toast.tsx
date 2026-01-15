@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { Star, XCircle, Trash2 } from "lucide-react";
+import { Star, XCircle, Trash2, Edit2 } from "lucide-react";
 
 interface ToastProps {
   isOpen: boolean;
   onClose: () => void;
   message: string;
-  type?: "success" | "error" | "info";
+  type?: "success" | "error" | "info" | "edit";
   duration?: number;
 }
 
@@ -52,6 +52,14 @@ export const Toast = ({
       shadowColor: "shadow-red-500/40",
       borderColor: "border-red-500/30",
       bgGradient: "from-red-500/5 via-red-500/10 to-transparent",
+    },
+    edit: {
+      Icon: Edit2,
+      iconColor: "text-white",
+      bg: "from-lime-500 via-lime-500 to-lime-600",
+      shadowColor: "shadow-lime-500/40",
+      borderColor: "border-lime-500/30",
+      bgGradient: "from-lime-500/5 via-lime-500/10 to-transparent",
     },
   };
 
