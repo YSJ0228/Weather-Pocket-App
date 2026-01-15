@@ -32,7 +32,7 @@ export const WeatherDashboard = () => {
   >("weather");
   const [isFavoritePanelOpen, setIsFavoritePanelOpen] = useState(false);
   const [isDeleteAllModalOpen, setIsDeleteAllModalOpen] = useState(false);
-  const [toast, setToast] = useState<{ isOpen: boolean; message: string; type: "success" | "error" | "info" | "edit" }>({
+  const [toast, setToast] = useState<{ isOpen: boolean; message: string; type: "success" | "error" | "info" | "edit" | "settings" }>({
     isOpen: false,
     message: "",
     type: "success",
@@ -511,7 +511,15 @@ export const WeatherDashboard = () => {
                     선호하는 기온 단위를 선택하세요
                   </p>
                 </div>
-                <UnitToggle />
+                <UnitToggle
+                  onToggle={() => {
+                    setToast({
+                      isOpen: true,
+                      message: "설정이 변경되었습니다",
+                      type: "settings",
+                    });
+                  }}
+                />
               </div>
 
               <div className="pt-6 border-t border-gray-100">
@@ -522,7 +530,15 @@ export const WeatherDashboard = () => {
                       12시간제 또는 24시간제를 선택하세요
                     </p>
                   </div>
-                  <TimeFormatToggle />
+                  <TimeFormatToggle
+                    onToggle={() => {
+                      setToast({
+                        isOpen: true,
+                        message: "설정이 변경되었습니다",
+                        type: "settings",
+                      });
+                    }}
+                  />
                 </div>
               </div>
 

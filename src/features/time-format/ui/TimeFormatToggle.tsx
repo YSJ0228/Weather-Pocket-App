@@ -1,11 +1,20 @@
 import { useTimeFormat } from "../model/TimeFormatContext";
 
-export const TimeFormatToggle = () => {
+interface TimeFormatToggleProps {
+  onToggle?: () => void;
+}
+
+export const TimeFormatToggle = ({ onToggle }: TimeFormatToggleProps) => {
   const { format, toggleFormat } = useTimeFormat();
+
+  const handleToggle = () => {
+    toggleFormat();
+    onToggle?.();
+  };
 
   return (
     <button
-      onClick={toggleFormat}
+      onClick={handleToggle}
       className="relative inline-flex items-center bg-slate-100 rounded-2xl p-1 shadow-inner hover:bg-slate-200 transition-colors overflow-hidden"
       aria-label="시간 형식 변경"
     >

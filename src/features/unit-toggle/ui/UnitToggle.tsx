@@ -1,11 +1,20 @@
 import { useUnit } from "../model/UnitContext";
 
-export const UnitToggle = () => {
+interface UnitToggleProps {
+  onToggle?: () => void;
+}
+
+export const UnitToggle = ({ onToggle }: UnitToggleProps) => {
   const { unit, toggleUnit } = useUnit();
+
+  const handleToggle = () => {
+    toggleUnit();
+    onToggle?.();
+  };
 
   return (
     <button
-      onClick={toggleUnit}
+      onClick={handleToggle}
       className="relative inline-flex items-center bg-slate-100 rounded-2xl p-1 shadow-inner hover:bg-slate-200 transition-colors overflow-hidden"
       aria-label="기온 단위 변경"
     >
