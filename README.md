@@ -9,6 +9,8 @@
 [![Vite](https://img.shields.io/badge/Vite-7.2.4-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4.1.18-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
+**🌐 [Live Demo](https://weather-pocket-app1.vercel.app/)**
+
 [✨ 기능](#-주요-기능) • [🚀 시작하기](#-시작하기) • [🛠️ 기술 스택](#️-기술-스택) • [📱 스크린샷](#-스크린샷)
 
 </div>
@@ -54,8 +56,9 @@ Weather Pocket은 현대적이고 사용자 친화적인 날씨 애플리케이�
 - ✨ Glassmorphism 디자인
 - 🎭 부드러운 애니메이션 및 트랜지션
 - 🎯 직관적인 인터랙션
-- 🔔 Toast 알림 (즐겨찾기 추가/제거)
+- 🔔 Toast 알림 (즐겨찾기 추가/제거/수정, 설정 변경)
 - ⚠️ 친절한 에러 메시지
+- 🖼️ Open Graph 이미지 (링크 공유 시 미리보기)
 
 ---
 
