@@ -66,8 +66,16 @@ export const useFavorites = () => {
     );
   };
 
-  const isFavorite = (districtId: string) => {
-    return favorites.some((f) => f.id === districtId);
+  const isFavorite = (districtIdOrLat: string | number, lon?: number) => {
+    // 좌표로 전달된 경우 (lat, lon)
+    if (typeof districtIdOrLat === "number" && lon !== undefined) {
+      const roundedLat = Number(districtIdOrLat.toFixed(4));
+      const roundedLon = Number(lon.toFixed(4));
+      const normalizedId = `${roundedLat}-${roundedLon}`;
+      return favorites.some((f) => f.id === normalizedId);
+    }
+    // ID로 전달된 경우
+    return favorites.some((f) => f.id === districtIdOrLat);
   };
 
   const clearAll = () => {

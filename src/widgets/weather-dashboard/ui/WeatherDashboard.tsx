@@ -638,6 +638,12 @@ export const WeatherDashboard = () => {
           onConfirm={() => {
             clearAll();
             setIsFavoritePanelOpen(false);
+            setIsDeleteAllModalOpen(false);
+            setToast({
+              isOpen: true,
+              message: "모든 즐겨찾기가 삭제되었습니다",
+              type: "info",
+            });
           }}
           title="즐겨찾기 전체 삭제"
           message="모든 즐겨찾기를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."

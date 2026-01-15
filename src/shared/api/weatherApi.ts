@@ -97,9 +97,12 @@ export const weatherApi = {
     
     // 어제의 같은 시간대 기온 가져오기
     // Open-Meteo는 past_days: 1 설정 시 어제 00:00부터 hourly 데이터를 반환함
-    // 따라서 24시간 전의 인덱스는 (오늘 시간 인덱스)임. (0~23은 어제, 24~47은 오늘)
+    // Index 0-23: 어제, Index 24-47: 오늘
     // data.hourly.temperature_2m[currentHourIndex]는 어제 이 시간 기온
     const yesterdayTemp = data.hourly.temperature_2m[currentHourIndex];
+    
+    // 오늘의 현재 시간 인덱스 (24를 더해서 오늘 데이터 영역으로)
+    const todayHourIndex = currentHourIndex + 24;
 
     // 좌표를 소수점 4자리로 반올림하여 일관된 ID 생성 (약 11m 정확도)
     const roundedLat = Number(lat.toFixed(4));
@@ -107,7 +110,7 @@ export const weatherApi = {
 
     return {
       current: {
-        coord: { lat, lon },
+        coord: { lat: roundedLat, lon: roundedLon },
         temp: data.current.temperature_2m,
         yesterday_temp: yesterdayTemp,
         feels_like: data.current.apparent_temperature,
@@ -121,9 +124,9 @@ export const weatherApi = {
         id: `${roundedLat}-${roundedLon}`,
 
         // Extended Data
-        uv_index: data.hourly.uv_index[currentHourIndex] || 0,
+        uv_index: data.hourly.uv_index[todayHourIndex] || 0,
         precip_prob:
-          data.hourly.precipitation_probability[currentHourIndex] || 0,
+          data.hourly.precipitation_probability[todayHourIndex] || 0,
         sunrise: data.daily.sunrise[0],
         sunset: data.daily.sunset[0],
         cloud_cover: data.current.cloud_cover,
@@ -139,11 +142,11 @@ export const weatherApi = {
         icon_code: data.daily.weather_code[i],
         description: getWmoDescription(data.daily.weather_code[i]),
       })),
-      hourly: data.hourly.time.slice(0, 24).map((time: string, i: number) => ({
+      hourly: data.hourly.time.slice(24, 48).map((time: string, i: number) => ({
         time,
-        temp: data.hourly.temperature_2m[i],
-        icon_code: data.hourly.weather_code[i],
-        description: getWmoDescription(data.hourly.weather_code[i]),
+        temp: data.hourly.temperature_2m[i + 24],
+        icon_code: data.hourly.weather_code[i + 24],
+        description: getWmoDescription(data.hourly.weather_code[i + 24]),
       })),
     };
   },
