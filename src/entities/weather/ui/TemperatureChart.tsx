@@ -2,8 +2,6 @@ import type { HourlyForecast } from "../model/types";
 import { useUnit } from "../../../features/unit-toggle/model/UnitContext";
 import { Skeleton } from "../../../shared/ui/Skeleton";
 import {
-  LineChart,
-  Line,
   Area,
   AreaChart,
   XAxis,
@@ -43,7 +41,7 @@ export const TemperatureChart = ({
   });
 
   // 차트 데이터 준비
-  const chartData = data.map((hour, index) => {
+  const chartData = data.map((hour) => {
     const date = new Date(hour.time);
     const hourTime = date.getHours();
     const isNow = hourTime === currentHour;

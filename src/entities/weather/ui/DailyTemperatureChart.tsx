@@ -90,7 +90,7 @@ export const DailyTemperatureChart = ({
           color: "#70C1D3",
           font: {
             size: 11,
-            weight: "600" as const,
+            weight: 600,
           },
           formatter: (value: number) => `${value}°`,
           padding: {
@@ -117,7 +117,7 @@ export const DailyTemperatureChart = ({
           color: "#4A9DB8",
           font: {
             size: 11,
-            weight: "600" as const,
+            weight: 600,
           },
           formatter: (value: number) => `${value}°`,
           padding: {
@@ -145,7 +145,7 @@ export const DailyTemperatureChart = ({
         displayColors: true,
         titleFont: {
           size: 14,
-          weight: "600" as const,
+          weight: 600,
         },
         bodyFont: {
           size: 13,

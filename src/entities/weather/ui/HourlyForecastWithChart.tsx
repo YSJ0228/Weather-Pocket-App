@@ -85,13 +85,9 @@ export const HourlyForecastWithChart = ({
 
   // 현재 시간 인덱스 찾기
   const currentHour = new Date().getHours();
-  const currentIndex = data.findIndex((hour) => {
-    const date = new Date(hour.time);
-    return date.getHours() === currentHour;
-  });
 
   // 차트 데이터 준비
-  const chartData = data.map((hour, index) => {
+  const chartData = data.map((hour) => {
     const date = new Date(hour.time);
     const hourTime = date.getHours();
     const isNow = hourTime === currentHour;
@@ -148,9 +144,9 @@ export const HourlyForecastWithChart = ({
           },
           font: {
             size: 10,
-            weight: "600" as const,
+            weight: 600,
           },
-          formatter: (value: number, context: any) => {
+          formatter: (value: number) => {
             return `${value}°`;
           },
           padding: {
@@ -244,7 +240,7 @@ export const HourlyForecastWithChart = ({
           ref={scrollContainerRef}
           className="flex gap-3 overflow-x-auto pb-3 scrollbar-hide snap-x -mx-2 px-2 pt-2"
         >
-          {data.map((hour, index) => {
+          {data.map((hour) => {
             const date = new Date(hour.time);
             const hourTime = date.getHours();
             const isNow = hourTime === currentHour;

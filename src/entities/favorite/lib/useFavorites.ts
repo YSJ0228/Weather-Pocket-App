@@ -23,7 +23,7 @@ export const useFavorites = () => {
   }, [favorites]);
 
   const addFavorite = (
-    districtId: string,
+    _districtId: string,
     lat: number,
     lon: number,
     defaultNickname: string

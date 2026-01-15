@@ -27,7 +27,7 @@ export const useCurrentLocationWeather = () => {
   // 2. Fetch weather only when coords are available
   const weatherQuery = useQuery<WeatherData>({
     queryKey: ["weather", "current", coords],
-    queryFn: () => weatherApi.getCurrentWeather(coords!.lat, coords!.lon),
+    queryFn: () => weatherApi.getWeatherData(coords!.lat, coords!.lon),
     enabled: !!coords,
   });
 

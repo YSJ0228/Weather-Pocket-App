@@ -24,7 +24,7 @@ export const FavoriteCard = ({
   currentTemp,
   tempMax,
   tempMin,
-  unit = "C",
+  unit: _unit = "C",
   weatherIcon,
   readonly = false,
 }: FavoriteCardProps) => {
