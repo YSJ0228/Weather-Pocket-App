@@ -5,7 +5,7 @@ import {
   getCurrentLocation,
   type Coordinates,
 } from "../../../shared/lib/geolocation";
-import type { WeatherData } from "../model/types";
+import type { WeatherResponse } from "../model/types";
 
 export const useCurrentLocationWeather = () => {
   const [coords, setCoords] = useState<Coordinates | null>(null);
@@ -25,7 +25,7 @@ export const useCurrentLocationWeather = () => {
   }, []);
 
   // 2. Fetch weather only when coords are available
-  const weatherQuery = useQuery<WeatherData>({
+  const weatherQuery = useQuery<WeatherResponse>({
     queryKey: ["weather", "current", coords],
     queryFn: () => weatherApi.getWeatherData(coords!.lat, coords!.lon),
     enabled: !!coords,
