@@ -147,10 +147,10 @@ export const FavoriteCard = ({
             
             {/* 하단: 최고/최저 온도 + 액션 버튼 (슬라이딩) */}
             <div className="relative">
-              <div className="flex items-center justify-end transition-transform duration-300 group-hover:-translate-x-20">
+              <div className="flex items-center justify-end transition-transform duration-300 lg:group-hover:-translate-x-20">
                 {/* 최고/최저 온도 */}
                 {tempMax !== undefined && tempMin !== undefined && (
-                  <div className="flex items-center gap-2 text-sm font-bold text-slate-600">
+                  <div className="flex items-center gap-2 text-sm font-bold text-slate-600 mr-16 lg:mr-0">
                     <span>최고:{tempMax.toFixed(0)}°</span>
                     <span>최저:{tempMin.toFixed(0)}°</span>
                   </div>
@@ -158,13 +158,13 @@ export const FavoriteCard = ({
               </div>
               
               {/* 액션 버튼 - 오른쪽에서 나타남 */}
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-1 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300">
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
                     setIsEditing(true);
                   }}
-                  className="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-[#70C1D3] transition-all duration-200 active:scale-90"
+                  className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-[#70C1D3] transition-all duration-200 active:scale-90"
                 >
                   <Edit2 className="w-4 h-4" />
                 </button>
@@ -173,7 +173,7 @@ export const FavoriteCard = ({
                     e.stopPropagation();
                     onRemove();
                   }}
-                  className="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-red-500 transition-all duration-200 active:scale-90"
+                  className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-red-500 transition-all duration-200 active:scale-90"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -287,7 +287,7 @@ export const FavoriteCard = ({
                   e.stopPropagation();
                   setIsEditing(true);
                 }}
-                className="p-2.5 md:p-3 rounded-xl md:rounded-2xl text-slate-300 hover:text-white hover:bg-[#70C1D3] transition-all duration-200 opacity-0 group-hover:opacity-100 active:scale-90"
+                className="p-2.5 md:p-3 rounded-xl md:rounded-2xl text-slate-400 hover:text-white hover:bg-[#70C1D3] transition-all duration-200 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 active:scale-90"
               >
                 <Edit2 className="w-4 h-4 md:w-5 md:h-5" />
               </button>
@@ -296,7 +296,7 @@ export const FavoriteCard = ({
                   e.stopPropagation();
                   onRemove();
                 }}
-                className="p-2.5 md:p-3 rounded-xl md:rounded-2xl text-slate-300 hover:text-white hover:bg-red-500 transition-all duration-200 opacity-0 group-hover:opacity-100 active:scale-90"
+                className="p-2.5 md:p-3 rounded-xl md:rounded-2xl text-slate-400 hover:text-white hover:bg-red-500 transition-all duration-200 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 active:scale-90"
               >
                 <Trash2 className="w-4 h-4 md:w-5 md:h-5" />
               </button>

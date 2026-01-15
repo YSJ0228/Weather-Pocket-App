@@ -231,15 +231,18 @@ export const WeatherDashboard = () => {
     <div
       className={`fixed inset-0 overflow-y-auto transition-all duration-700 ${backgroundClass}`}
     >
-      <div className="w-full max-w-7xl mx-auto flex flex-col min-h-full pb-32 px-4 sm:px-6">
+      <div className="w-full min-w-[360px] max-w-7xl mx-auto flex flex-col min-h-full pb-32 px-4 sm:px-6">
         {activeTab === "weather" && (
           <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* 시계와 모바일 즐겨찾기 버튼 */}
-            <div className="relative flex items-center justify-center">
+            <div className="flex items-end justify-between lg:justify-center lg:items-center px-2 sm:px-0">
+              {/* 모바일/태블릿에서만 왼쪽 공간 확보 (중앙 정렬 유지) */}
+              <div className="lg:hidden w-12 sm:w-14" />
+              
               <DigitalClock />
               
               {/* 모바일/태블릿 즐겨찾기 버튼 - lg 이상에서는 숨김 */}
-              <div className="lg:hidden absolute right-4 md:right-6 top-1/2 -translate-y-1/2">
+              <div className="lg:hidden pb-2 sm:pb-4">
                 <button
                   onClick={() => setIsFavoritePanelOpen(true)}
                   className="relative p-3 md:p-3.5 rounded-xl md:rounded-2xl bg-white/90 backdrop-blur-sm border-2 border-white/40 shadow-lg hover:shadow-xl transition-all active:scale-95"
@@ -257,7 +260,7 @@ export const WeatherDashboard = () => {
             {/* 메인 콘텐츠와 즐겨찾기를 분리된 구조로 배치 */}
             <div className="flex flex-col lg:flex-row gap-6 md:gap-8 lg:items-start lg:overflow-visible">
               {/* 메인 콘텐츠 영역 - 스크롤 가능 */}
-              <div className="flex-1 flex flex-col gap-6 md:gap-8 min-w-0 w-full">
+              <div className="flex-1 flex flex-col gap-6 md:gap-8 min-w-[320px] w-full">
                 <main className="flex flex-col gap-6 md:gap-8">
                   <section>
                     {activeCoords &&
@@ -503,9 +506,9 @@ export const WeatherDashboard = () => {
               </p>
             </header>
 
-            <section className="glass p-6 space-y-6">
-              <div className="flex items-center justify-between">
-                <div>
+            <section className="glass p-5 sm:p-6 space-y-6">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex-1 min-w-0">
                   <h4 className="font-semibold text-gray-900">기온 단위</h4>
                   <p className="text-xs text-gray-500 mt-0.5">
                     선호하는 기온 단위를 선택하세요
@@ -523,8 +526,8 @@ export const WeatherDashboard = () => {
               </div>
 
               <div className="pt-6 border-t border-gray-100">
-                <div className="flex items-center justify-between">
-                  <div>
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex-1 min-w-0">
                     <h4 className="font-semibold text-gray-900">시간 형식</h4>
                     <p className="text-xs text-gray-500 mt-0.5">
                       12시간제 또는 24시간제를 선택하세요

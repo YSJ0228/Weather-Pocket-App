@@ -83,30 +83,30 @@ export const CurrentWeatherCard = ({
   const tempDiff = weather.yesterday_temp !== undefined ? weather.temp - weather.yesterday_temp : 0;
 
   return (
-    <div className="glass p-8 sm:p-10 w-full animate-spring relative overflow-hidden group">
+    <div className="glass p-5 sm:p-8 md:p-10 w-full animate-spring relative overflow-hidden group">
       {/* 배경 블러 장식 - 더 은은하게 변경 */}
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-linear-to-br from-[#70C1D3]/5 to-transparent rounded-full blur-[100px] -mr-40 -mt-40 transition-transform duration-1000 group-hover:scale-110" />
       
       <div className="relative z-10">
         {/* 헤더 섹션 */}
-        <div className="flex justify-between items-start mb-12">
-          <div className="space-y-1.5">
+        <div className="flex justify-between items-start mb-8 sm:mb-12 gap-2">
+          <div className="space-y-1.5 min-w-0 flex-1">
             <div className="flex items-center gap-2 group/loc cursor-default">
-              <div className="p-1.5 bg-[#70C1D3]/10 rounded-lg transition-colors group-hover/loc:bg-[#70C1D3]/20">
+              <div className="p-1.5 bg-[#70C1D3]/10 rounded-lg transition-colors group-hover/loc:bg-[#70C1D3]/20 shrink-0">
                 <MapPin className="w-4 h-4 text-[#70C1D3]" />
               </div>
-              <h1 className="text-gray-900 font-bold text-2xl tracking-tight">
+              <h1 className="text-gray-900 font-bold text-xl sm:text-2xl tracking-tight truncate">
                 {locationName || weather.name}
               </h1>
             </div>
-            <p className="text-gray-400 text-sm font-medium ml-9">
+            <p className="text-gray-400 text-xs sm:text-sm font-medium ml-9 whitespace-nowrap">
               {new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', hour12: false })} 기준
             </p>
           </div>
           <button
             onClick={onToggleFavorite}
             className={cn(
-              "p-3.5 rounded-2xl transition-all duration-300 shadow-sm border active:scale-95",
+              "p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl transition-all duration-300 shadow-sm border active:scale-95 shrink-0",
               isFavorite 
                 ? "bg-[#70C1D3]/10 border-[#70C1D3]/30" 
                 : "bg-white border-gray-100 hover:border-[#70C1D3]/30"
@@ -114,7 +114,7 @@ export const CurrentWeatherCard = ({
           >
             <Star 
               className={cn(
-                "w-6 h-6 transition-colors",
+                "w-5 h-5 sm:w-6 sm:h-6 transition-colors",
                 isFavorite ? "fill-current" : "hover:text-[#70C1D3]"
               )}
               style={isFavorite ? { color: "#70C1D3" } : { color: "rgb(209, 213, 219)" }}
@@ -123,44 +123,44 @@ export const CurrentWeatherCard = ({
         </div>
 
         {/* 메인 정보 섹션 - 사이드 바이 사이드 레이아웃 */}
-        <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-8 mb-16">
-          <div className="flex items-center gap-8">
-            <div className="w-32 h-32 sm:w-40 sm:h-40 drop-shadow-[0_20px_50px_rgba(112,193,211,0.3)] animate-float">
+        <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-4 sm:gap-8 mb-8 sm:mb-12 md:mb-16">
+          <div className="flex items-center gap-4 sm:gap-8">
+            <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 drop-shadow-[0_20px_50px_rgba(112,193,211,0.3)] animate-float shrink-0">
               {getWeatherIcon(weather.icon_code)}
             </div>
-            <div className="space-y-1">
-              <div className="flex items-baseline gap-1">
-                <span className="text-8xl sm:text-9xl font-bold tracking-tighter" style={{ color: "#70C1D3" }}>
+            <div className="space-y-1 min-w-0">
+              <div className="flex items-baseline gap-1 whitespace-nowrap">
+                <span className="text-6xl sm:text-8xl md:text-9xl font-bold tracking-tighter" style={{ color: "#70C1D3" }}>
                   {convertTemp(weather.temp).toFixed(0)}°
                 </span>
-                <span className="text-4xl sm:text-5xl font-light text-slate-300 mb-4">{unit}</span>
+                <span className="text-3xl sm:text-4xl md:text-5xl font-light text-slate-300 mb-3 sm:mb-4">{unit}</span>
               </div>
-              <div className="flex items-center gap-3">
-                <span className="text-2xl font-semibold text-slate-700">{weather.description}</span>
-                <div className="h-4 w-px bg-slate-200" />
-                <div className="flex items-center gap-3">
-                <span className="text-rose-500 flex items-center gap-1">
-                  <ChevronUp className="w-3.5 h-3.5" />
+              <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+                <span className="text-lg sm:text-2xl font-semibold text-slate-700 whitespace-nowrap">{weather.description}</span>
+                <div className="h-4 w-px bg-slate-200 hidden sm:block" />
+                <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                <span className="text-rose-500 flex items-center gap-1 whitespace-nowrap">
+                  <ChevronUp className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                   <span className="text-xs font-medium text-slate-500">최고</span>
-                  <span className="font-bold">{convertTemp(weather.temp_max).toFixed(0)}°</span>
+                  <span className="font-bold text-sm sm:text-base">{convertTemp(weather.temp_max).toFixed(0)}°</span>
                 </span>
-                <span className="text-blue-500 flex items-center gap-1">
-                  <ChevronDown className="w-3.5 h-3.5" />
+                <span className="text-blue-500 flex items-center gap-1 whitespace-nowrap">
+                  <ChevronDown className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                   <span className="text-xs font-medium text-slate-500">최저</span>
-                  <span className="font-bold">{convertTemp(weather.temp_min).toFixed(0)}°</span>
+                  <span className="font-bold text-sm sm:text-base">{convertTemp(weather.temp_min).toFixed(0)}°</span>
                 </span>
-              </div>
+                </div>
               </div>
             </div>
           </div>
 
           {/* 어제 기온 비교 태그 */}
           {weather.yesterday_temp !== undefined && (
-            <div className="bg-slate-50 border border-slate-100 px-5 py-3 rounded-2xl shadow-sm transition-transform hover:-translate-y-1">
-              <p className="text-slate-500 text-sm font-medium flex items-center gap-2">
+            <div className="bg-slate-50 border border-slate-100 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl shadow-sm transition-transform hover:-translate-y-1">
+              <p className="text-slate-500 text-xs sm:text-sm font-medium flex items-center gap-1.5 sm:gap-2 whitespace-nowrap">
                 어제보다 {" "}
                 <span className={cn(
-                  "text-lg font-bold tracking-tight",
+                  "text-base sm:text-lg font-bold tracking-tight",
                   tempDiff > 0 ? "text-rose-500" : "text-blue-500"
                 )}>
                   {Math.abs(convertTemp(weather.temp) - convertTemp(weather.yesterday_temp)).toFixed(1)}°
@@ -172,7 +172,7 @@ export const CurrentWeatherCard = ({
         </div>
 
         {/* 상세 지표 그리드 - 타일 스타일 */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <StatTile 
             icon={<Thermometer className="w-5 h-5" />} 
             label="체감 온도" 
@@ -219,13 +219,13 @@ const StatTile = ({ icon, label, value, color }: StatTileProps) => {
   };
 
   return (
-    <div className="bg-white/40 backdrop-blur-md border border-white/60 p-5 rounded-[24px] flex flex-col items-center justify-center gap-3 transition-all duration-300 hover:bg-white/60 hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1">
-      <div className={cn("p-2.5 rounded-xl transition-transform group-hover:scale-110", colorMap[color])}>
+    <div className="bg-white/40 backdrop-blur-md border border-white/60 p-4 sm:p-5 rounded-[20px] sm:rounded-[24px] flex flex-col items-center justify-center gap-2 sm:gap-3 transition-all duration-300 hover:bg-white/60 hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1">
+      <div className={cn("p-2 sm:p-2.5 rounded-xl transition-transform group-hover:scale-110", colorMap[color])}>
         {icon}
       </div>
-      <div className="text-center space-y-0.5">
-        <p className="text-slate-400 text-[11px] font-bold uppercase tracking-widest">{label}</p>
-        <p className="text-slate-900 font-bold text-xl tracking-tight">{value}</p>
+      <div className="text-center space-y-0.5 min-w-0">
+        <p className="text-slate-400 text-[10px] sm:text-[11px] font-bold uppercase tracking-widest whitespace-nowrap truncate">{label}</p>
+        <p className="text-slate-900 font-bold text-lg sm:text-xl tracking-tight whitespace-nowrap">{value}</p>
       </div>
     </div>
   );

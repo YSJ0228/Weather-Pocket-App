@@ -15,9 +15,39 @@
 
 body {
   margin: 0;
-  min-width: 320px;
+  min-width: 360px;
   min-height: 100vh;
-  @apply bg-gradient-to-br from-[#D4E8ED] via-[#E8F2F5] to-[#F0F8FA] text-gray-900 overflow-x-hidden;
+  @apply bg-linear-to-br from-[#D4E8ED] via-[#E8F2F5] to-[#F0F8FA] text-gray-900 overflow-x-hidden;
+}
+
+#root {
+  min-width: 360px;
+}
+
+/* 텍스트가 세로로 바뀌지 않도록 방지 */
+* {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  -webkit-writing-mode: horizontal-tb !important;
+  writing-mode: horizontal-tb !important;
+}
+
+/* 한글 텍스트 최적화 */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* 작은 화면에서 텍스트 줄바꿈 방지 */
+@media (max-width: 500px) {
+  .text-8xl, .text-9xl {
+    white-space: nowrap;
+  }
+  
+  /* 온도 표시가 화면을 넘지 않도록 */
+  body {
+    font-size: 95%;
+  }
 }
 
 /* Main Color Card */

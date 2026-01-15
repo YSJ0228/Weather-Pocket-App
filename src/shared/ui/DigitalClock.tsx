@@ -24,9 +24,9 @@ export const DigitalClock = () => {
   const [day, datePart] = formattedDate.split(", ");
 
   return (
-    <div className="flex flex-col items-center justify-center py-6">
+    <div className="flex flex-col items-center justify-center py-2 sm:py-4 lg:py-6">
       <h2 
-        className="mb-4 text-white tabular-nums flex items-baseline gap-2"
+        className="mb-2 sm:mb-3 lg:mb-4 text-white tabular-nums flex items-baseline gap-2"
         style={{
           fontSize: "6rem",
           fontWeight: 700,
