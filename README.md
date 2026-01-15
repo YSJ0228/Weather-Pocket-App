@@ -22,6 +22,37 @@
 Weather Pocket은 현대적이고 사용자 친화적인 날씨 애플리케이션입니다. 
 깔끔한 UI/UX와 직관적인 인터랙션을 통해 누구나 쉽게 날씨 정보를 확인할 수 있습니다.
 
+## 📱 스크린샷
+
+### 데스크톱
+- 메인 화면 (날씨 정보 + 즐겨찾기)
+<img width="1900" height="928" alt="image" src="https://github.com/user-attachments/assets/5d6c38b8-6936-4046-ab1f-1df0eef594f8" />
+<img width="1900" height="928" alt="스크린샷 2026-01-15 오후 10 59 19" src="https://github.com/user-attachments/assets/f869e77a-7669-4f00-8f39-364ceb1e0d3b" />
+
+
+- 지역 검색 및 즐겨찾기 관리
+<img width="1917" height="929" alt="image" src="https://github.com/user-attachments/assets/d700b2aa-975b-43be-8c2f-34e35b83254b" />
+<img width="1917" height="929" alt="image" src="https://github.com/user-attachments/assets/1bb5b9da-fea1-44c5-b3f1-ffabcfc71d22" />
+
+- 설정 페이지
+<img width="1917" height="929" alt="image" src="https://github.com/user-attachments/assets/c3ac0b2e-ec18-4fa7-a523-47d267d06df6" />
+
+
+### 모바일
+- 메인 화면 (날씨 정보 + 즐겨찾기)
+<img width="383" height="840" alt="스크린샷 2026-01-15 오후 11 00 41" src="https://github.com/user-attachments/assets/63eb04cc-ca28-49b9-80d6-9738ed227cf0" />
+<img width="383" height="840" alt="스크린샷 2026-01-15 오후 11 00 48" src="https://github.com/user-attachments/assets/47c0898d-cd7b-4778-972b-cd3c65019a8f" />
+
+- 지역 검색 및 즐겨찾기 관리
+<img width="386" height="840" alt="image" src="https://github.com/user-attachments/assets/083e15a5-4be3-4fb9-8678-9b4cef91a436" />
+<img width="383" height="840" alt="image" src="https://github.com/user-attachments/assets/d430d239-e25b-4b14-8b0d-355d0d60e22a" />
+
+- 설정 페이지
+<img width="383" height="840" alt="image" src="https://github.com/user-attachments/assets/07f69ae1-a466-4fce-bd6d-a216a94963d0" />
+
+
+---
+
 ### ✨ 주요 기능
 
 #### 🌍 **실시간 날씨 정보**
@@ -288,21 +319,6 @@ weather-pocket/
 ├── public/                    # 정적 파일
 └── package.json
 ```
-
----
-
-## 📱 스크린샷
-
-### 데스크톱
-- 메인 화면 (날씨 정보 + 즐겨찾기)
-- 지역 검색 및 즐겨찾기 관리
-- 설정 페이지
-
-### 모바일
-- 반응형 레이아웃
-- 슬라이드 패널 즐겨찾기
-
-> 📸 스크린샷은 추후 추가 예정입니다.
 
 ---
 
